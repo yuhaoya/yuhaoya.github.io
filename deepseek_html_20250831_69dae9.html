@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人网站</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        /* 标题栏样式 */
+        header {
+            background: linear-gradient(90deg, #4a6cf7 0%, #6f42c1 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* 链接列表样式 */
+        .links-section {
+            padding: 40px 30px;
+            background: #f9fafc;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #4a6cf7;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #6f42c1;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .link-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .link-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4a6cf7 0%, #6f42c1 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .link-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .link-content {
+            flex-grow: 1;
+        }
+        
+        .link-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .link-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* 关于部分样式 */
+        .about-section {
+            padding: 40px 30px;
+            background: white;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .about-content p {
+            margin-bottom: 20px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .skill {
+            background: #f1f5fe;
+            color: #4a6cf7;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .link-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .link-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 20px;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .links-section, .about-section {
+                padding: 30px 20px;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            background: #f9fafc;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题栏 -->
+        <header>
+            <div class="profile">
+                <div class="avatar">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="个人头像">
+                </div>
+                <h1>张小明</h1>
+                <p class="title">前端开发工程师 & UI设计师</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </header>
+        
+        <!-- 链接列表 -->
+        <section class="links-section">
+            <h2 class="section-title">我的项目与链接</h2>
+            <div class="links-grid">
+                <div class="link-card" onclick="window.open('https://github.com', '_blank')">
+                    <div class="link-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>GitHub 主页</h3>
+                        <p>查看我的开源项目和代码贡献</p>
+                    </div>
+                </div>
+                
+                <div class="link-card" onclick="window.open('https://dribbble.com', '_blank')">
+                    <div class="link-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>设计作品集</h3>
+                        <p>浏览我的UI/UX设计作品和案例研究</p>
+                    </div>
+                </div>
+                
+                <div class="link-card" onclick="window.open('https://medium.com', '_blank')">
+                    <div class="link-icon">
+                        <i class="fas fa-blog"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>技术博客</h3>
+                        <p>阅读我关于前端开发和设计的文章</p>
+                    </div>
+                </div>
+                
+                <div class="link-card" onclick="window.open('https://linkedin.com', '_blank')">
+                    <div class="link-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>职业经历</h3>
+                        <p>查看我的工作经历和职业成就</p>
+                    </div>
+                </div>
+                
+                <div class="link-card" onclick="window.open('https://codepen.io', '_blank')">
+                    <div class="link-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>代码实验</h3>
+                        <p>探索我的前端代码片断和实验项目</p>
+                    </div>
+                </div>
+                
+                <div class="link-card" onclick="window.open('https://behance.net', '_blank')">
+                    <div class="link-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="link-content">
+                        <h3>摄影作品</h3>
+                        <p>欣赏我的摄影作品和后期处理技巧</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 关于部分 -->
+        <section class="about-section">
+            <h2 class="section-title">关于我</h2>
+            <div class="about-content">
+                <p>您好！我是张小明，一名专注于创建优雅且高效用户体验的前端开发工程师和UI设计师。拥有5年行业经验，我热衷于将复杂的技术问题转化为直观、美观的界面设计。</p>
+                
+                <p>我的职业生涯始于平面设计，后来逐渐转向网页设计和前端开发。这种多领域的背景使我能够更好地理解整个产品开发流程，并在设计和开发之间搭建沟通的桥梁。</p>
+                
+                <p>我坚信优秀的设计不仅仅是外观漂亮，更重要的是解决用户问题并提供无缝的使用体验。在工作中，我注重细节，追求代码质量，并始终保持对新技术的好奇心和学习热情。</p>
+                
+                <div class="skills">
+                    <span class="skill">HTML/CSS</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">React</span>
+                    <span class="skill">Vue.js</span>
+                    <span class="skill">UI/UX设计</span>
+                    <span class="skill">响应式设计</span>
+                    <span class="skill">前端性能优化</span>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2023 张小明 - 个人网站 | 版权所有</p>
+        </footer>
+    </div>
+
+    <script>
+        // 为链接卡片添加点击效果
+        document.querySelectorAll('.link-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+        
+        // 添加滚动动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            // 观察所有链接卡片和关于部分
+            document.querySelectorAll('.link-card, .about-content').forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
